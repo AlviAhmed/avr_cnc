@@ -2,7 +2,7 @@
              * avr_cnc.c
              *
              * Created: 2015-04-01 6:13:58 AM
-             *  Author: Alvi Ahmed
+             *  Author: Alvi
              */ 
 
 
