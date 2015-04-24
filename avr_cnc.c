@@ -10,8 +10,8 @@
             #include <util/delay.h> 
             #include <avr/interrupt.h> 
             // x-axis
-            #define stp_x_led PB1 
-            #define dir_x_led PB0  
+            #define stp_x_led PB0
+            #define dir_x_led PB1  
            
             ////////////// 
             // y-axis
