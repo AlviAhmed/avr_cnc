@@ -15,26 +15,26 @@
            
             ////////////// 
             // y-axis
-            #define stp_y_led PD7 
-            #define dir_y_led PD6 
+            #define stp_y_led PD6
+            #define dir_y_led PD7 
              
             ////////////  
             // z-zxis  
-            #define stp_z_led PC5 
-            #define dir_z_led PC4  
+            #define stp_z_led PD4 
+            #define dir_z_led PD5
             
             // PORTB 
             #define led_portx PORTB
             //////////// 
             /// PORTD
-            #define led_porty PORTD 
+            #define led_portyz PORTD 
             ///////////  
             // PORTC 
-            #define led_portz PORTC 
+            //#define led_portz PORTC 
             // DDR////////
             #define led_x_ddr DDRB  
             #define led_y_ddr DDRD 
-            #define led_z_ddr DDRC
+            #define led_z_ddr DDRD
             #define F_CPU 16000000UL 
            
              
@@ -81,9 +81,9 @@
             ISR(TIMER1_COMPA_vect)
             {   
 
-                x_stepper(10, 1); 
-                
-
+                x_stepper(10, 1);  
+                y_stepper(20,1); 
+                z_stepper(30,1); 
             }
 
             void x_stepper (stp_x,dir_x){  
@@ -97,7 +97,7 @@
                 ///////////////////////////////
                 //stepper logic
                     led_portx ^= (1 << stp_x_led);
-                    if (x_counter >= stp_x_led){ 
+                    if (x_counter >= stp_x){ 
                         led_portx &= ~ (1 << stp_x_led);  
                         x_boolean = 0; 
                     }      
@@ -110,16 +110,16 @@
             void y_stepper (stp_y,dir_y){  
                 //direction
                 if (dir_y == 1){ 
-                    led_porty |= (1 << dir_y_led); 
+                    led_portyz |= (1 << dir_y_led); 
                 } 
                 else if (dir_y == 0){ 
-                    led_porty &= ~ (1 << dir_y_led); 
+                    led_portyz &= ~ (1 << dir_y_led); 
                 }  
                 ///////////////////////////////
                 //stepper logic
-                    led_porty ^= (1 << stp_y_led);
+                    led_portyz ^= (1 << stp_y_led);
                     if (y_counter >= stp_y){ 
-                        led_porty &= ~ (1 << stp_y_led);  
+                        led_portyz &= ~ (1 << stp_y_led);  
                         y_boolean = 0; 
                     }      
                     if (y_boolean == 1){
@@ -131,16 +131,16 @@
              void z_stepper (stp_z,dir_z){  
                 //direction
                 if (dir_z == 1){ 
-                    led_portz |= (1 << dir_z_led); 
+                    led_portyz |= (1 << dir_z_led); 
                 } 
                 else if (dir_z == 0){ 
-                    led_portz &= ~ (1 << dir_z_led); 
+                    led_portyz &= ~ (1 << dir_z_led); 
                 } 
                 ///////////////////////////////
                 //stepper logic
-                    led_portz ^= (1 << stp_z_led);
+                    led_portyz ^= (1 << stp_z_led);
                     if (z_counter >= stp_z){ 
-                        led_portz &= ~ (1 << stp_z_led);  
+                        led_portyz &= ~ (1 << stp_z_led);  
                         z_boolean = 0; 
                     }      
                     if (z_boolean == 1){
