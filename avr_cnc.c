@@ -1,4 +1,4 @@
-/*
+            /*
              * avr_cnc.c
              *
              * Created: 2015-04-01 6:13:58 AM
@@ -9,28 +9,55 @@
             #include <avr/io.h>   
             #include <util/delay.h> 
             #include <avr/interrupt.h> 
-            #define stp_led PB0 
-            #define dir_led PB1
-            #define led_port PORTB
-            #define led_ddr DDRB
+            // x-axis
+            #define stp_x_led PB0 
+            #define dir_x_led PB1  
+           
+            ////////////// 
+            // y-axis
+            #define stp_y_led PD7 
+            #define dir_y_led PD6 
+             
+            ////////////  
+            // z-zxis  
+            #define stp_z_led PC5 
+            #define dir_z_led PC4  
+            
+            // PORTB 
+            #define led_portx PORTB
+            //////////// 
+            /// PORTD
+            #define led_porty PORTD 
+            ///////////  
+            // PORTC 
+            #define led_portz PORTC 
+            // DDR////////
+            #define led_x_ddr DDRB  
+            #define led_y_ddr DDRD 
+            #define led_z_ddr DDRC
             #define F_CPU 16000000UL 
+           
+             
             int x_counter = 0; 
             int x_boolean = 1; 
             int y_counter = 0; 
-            int y_boolean = 1; 
+            int y_boolean = 1;
             int z_counter = 0; 
             int z_boolean = 1;
-
-
+            
             int main(void)
             {  
-                //volatile int x = 0;
+                
+                ////// DDR setups /////////////////////////////////////////////////
+                led_x_ddr |= ((1 << stp_x_led) | (1 << dir_x_led));   
+                led_y_ddr |= ((1 << stp_y_led) | (1 << dir_y_led)); 
+                led_z_ddr |= ((1 << stp_z_led) | (1 << dir_z_led));
+                ////////// PORT setups /////////////////////////////////////// 
+                //led_portx |= ((1 << stp_x_led) | (1 << dir_x_led)); 
+                //led_porty |= ((1 << stp_y_led) | (1 << dir_y_led)); 
+                //led_portz |= ((1 << stp_z_led) | (1 << dir_z_led));
                 ///////////////////////////////////////////////////////
-                led_ddr |= (1 << stp_led); //enable led as an output pin  
-                led_ddr |= (1 << dir_led);   
-                //led_port |= (1<<stp_led);   
-                led_port |= (1<<dir_led); 
-                ///////////////////////////////////////////////////////
+                
                 TCCR1B |= (1 << WGM12);  // configuring timer 1 for ctc mode
                 OCR1A = 4678;
                 TIMSK1 |= (1 << OCIE1A); // enable ctc interrupt
@@ -54,27 +81,74 @@
             ISR(TIMER1_COMPA_vect)
             {   
 
-                x_stepper (10, 1);
+                x_stepper(10, 1); 
+                
 
             }
 
-            void x_stepper (stp,dir){  
+            void x_stepper (stp_x,dir_x){  
                 //direction
-                if (dir == 1){ 
-                    led_port |= (1 << dir_led);} 
-                else if (dir == 0){ 
-                    led_port &= ~ (1 << dir_led);} 
+                if (dir_x == 1){ 
+                    led_portx |= (1 << dir_x_led); 
+                } 
+                else if (dir_x == 0){ 
+                    led_portx &= ~ (1 << dir_x_led); 
+                } 
+                ///////////////////////////////
                 //stepper logic
-                    led_port ^= (1 << stp_led);
-                    if (x_counter >= stp){ 
-                        led_port &= ~ (1 << stp_led);  
-                            x_boolean = 0;}      
-                if (x_boolean == 1){
-                x_counter ++;
-                 }
+                    led_portx ^= (1 << stp_x_led);
+                    if (x_counter >= stp_x_led){ 
+                        led_portx &= ~ (1 << stp_x_led);  
+                        x_boolean = 0; 
+                    }      
+                    if (x_boolean == 1){
+                    x_counter ++;
+                    }   
+                //////////////////////////////
+            }  
+
+            void y_stepper (stp_y,dir_y){  
+                //direction
+                if (dir_y == 1){ 
+                    led_porty |= (1 << dir_y_led); 
+                } 
+                else if (dir_y == 0){ 
+                    led_porty &= ~ (1 << dir_y_led); 
+                }  
+                ///////////////////////////////
+                //stepper logic
+                    led_porty ^= (1 << stp_y_led);
+                    if (y_counter >= stp_y){ 
+                        led_porty &= ~ (1 << stp_y_led);  
+                        y_boolean = 0; 
+                    }      
+                    if (y_boolean == 1){
+                    y_counter ++;
+                    }   
+                //////////////////////////////
             } 
 
-
+             void z_stepper (stp_z,dir_z){  
+                //direction
+                if (dir_z == 1){ 
+                    led_portz |= (1 << dir_z_led); 
+                } 
+                else if (dir_z == 0){ 
+                    led_portz &= ~ (1 << dir_z_led); 
+                } 
+                ///////////////////////////////
+                //stepper logic
+                    led_portz ^= (1 << stp_z_led);
+                    if (z_counter >= stp_z){ 
+                        led_portz &= ~ (1 << stp_z_led);  
+                        z_boolean = 0; 
+                    }      
+                    if (z_boolean == 1){
+                    z_counter ++;
+                    }   
+                //////////////////////////////
+            }
+            
                
             
 
