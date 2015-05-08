@@ -1,4 +1,4 @@
- /*
+            /*
              * avr_cnc.c
              *
              * Created: 2015-04-01 6:13:58 AM
@@ -6,7 +6,8 @@
              */ 
 
 
-            #include <avr/io.h>   
+            #include <avr/io.h>    
+            #include <stdio.h>
             #include <util/delay.h> 
             #include <avr/interrupt.h>  
             //axis bools
@@ -46,12 +47,15 @@
             int y_counter = 0; 
             int y_boolean = 1;
             int z_counter = 0; 
-            int z_boolean = 1; 
+            int z_boolean = 1;  
+
 
             int x_enable = 1; 
             int y_enable = 1; 
             int z_enable = 1;
             
+            
+
             int main(void)
             {  
                 
@@ -59,11 +63,7 @@
                 led_x_ddr |= ((1 << stp_x_led) | (1 << dir_x_led));   
                 led_y_ddr |= ((1 << stp_y_led) | (1 << dir_y_led)); 
                 led_z_ddr |= ((1 << stp_z_led) | (1 << dir_z_led));
-                ////////// PORT setups /////////////////////////////////////// 
-                //led_portx |= ((1 << stp_x_led) | (1 << dir_x_led)); 
-                //led_porty |= ((1 << stp_y_led) | (1 << dir_y_led)); 
-                //led_portz |= ((1 << stp_z_led) | (1 << dir_z_led));
-                ///////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////
                 
                 TCCR1B |= (1 << WGM12);  // configuring timer 1 for ctc mode
                 OCR1A = 4678;
@@ -87,10 +87,11 @@
 
             ISR(TIMER1_COMPA_vect)
             {   
-
+                ///////Define which stepper, direction and how many steps in this code
                 x_stepper(1,10, 1);  
-                y_stepper(0,20,1); 
-                z_stepper(1,30,1); 
+                y_stepper(1,20,1); 
+                z_stepper(0,30,1); 
+                ////////////////////////////////////////////////////////////////////
             }
 
             void x_stepper (axis_x,stp_x,dir_x){ 
@@ -167,5 +168,6 @@
                     }   
                     //////////////////////////////
                 }
-            }
-            
+            } 
+
+           
