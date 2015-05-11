@@ -1,7 +1,7 @@
 DEVICE     = atmega328p
 CLOCK      = 16000000
 PROGRAMMER = -c arduino -P /dev/ttyACM0 -b 32400
-OBJECTS    = avr_cnc.c
+OBJECTS    = avr_cnc_sim.c
 FUSES      = -U lfuse:w:0xe2:m -U hfuse:w:0xd9:m -U efuse:w:0xff:m
 
 # Tune the lines below only if you know what you are doing:
