@@ -183,7 +183,7 @@
                     }  
                 }  
             } 
-            //Checks is user enabled x_y-axis     
+            //Checks is user enabled xy-axis     
                 else if (enable = 4){  
                 xy_boolean = 1; 
                 //direction
@@ -221,7 +221,7 @@
                     xy_counter ++;
                     }  
                 }   
-            //Checks is user enabled x_z-axis     
+            //Checks is user enabled xz-axis     
                 else if (enable = 5){  
                 xz_boolean = 1; 
                 //direction
@@ -244,7 +244,7 @@
                 //stepper logic 
                     led_portyz ^= (1 << stp_z_led); 
                     led_portx ^= (1 << stp_x_led);
-                    if (xy_counter >= steps_ab){ 
+                    if (xz_counter >= steps_ab){ 
                         led_portx = (0 << stp_x_led); 
                         led_portyz = (0 << stp_z_led);  
                         led_portx = (0 << dir_x_led);
@@ -259,8 +259,45 @@
                     xz_counter ++;
                     }  
                 }  
+                //Checks is user enabled yz-axis     
+                else if (enable = 6){  
+                yz_boolean = 1; 
+                //direction
+                    if (direction_ab == 10){ 
+                        led_portyz |= (1 << dir_y_led); 
+                        led_portyz = (0 << dir_z_led);
+                    } 
+                    else if (direction_ab == 11){ 
+                        led_portyz |= (1 << dir_y_led); 
+                        led_portyz = (1 << dir_z_led);
+                    } 
+                    else if (direction_ab == 01){ 
+                        led_portyz |= (0 << dir_y_led); 
+                        led_portyz = (1 << dir_z_led);
+                    } 
+                    else if (direction_ab == 00){ 
+                        led_portyz |= (0 << dir_y_led); 
+                        led_portyz = (0 << dir_z_led);
+                    }  
+                //stepper logic 
+                    led_portyz ^= (1 << stp_z_led); 
+                    led_portyz ^= (1 << stp_y_led);
+                    if (yz_counter >= steps_ab){ 
+                        led_portyz = (0 << stp_y_led); 
+                        led_portyz = (0 << stp_z_led);  
+                        led_portyz = (0 << dir_y_led);
+                        led_portyz = (0 << dir_z_led);
+                        yz_boolean = 0; 
+                    } 
+                    if (yz_counter >= steps_ab){ 
+                        yz_counter = 0;
+                        ab ++; 
+                    }      
+                    if (yz_boolean == 1){
+                    yz_counter ++;
+                    } 
+                }  
 
             }//main ab condition
-
 
         }///end of function        
