@@ -54,6 +54,7 @@
             int y_enable = 1; 
             int z_enable = 1;
             
+          
             
 
             int main(void)
@@ -88,9 +89,9 @@
             ISR(TIMER1_COMPA_vect)
             {   
                 ///////Define which stepper, direction and how many steps in this code
-                x_stepper(1,10, 1);  
-                y_stepper(1,20,1); 
-                z_stepper(0,30,1); 
+                x_stepper(1,0,1);  
+                y_stepper(0,0,0); 
+                z_stepper(0,0,0); 
                 ////////////////////////////////////////////////////////////////////
             }
 
