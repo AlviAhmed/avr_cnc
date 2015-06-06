@@ -112,7 +112,8 @@
                         if (x_counter >= stp_x){ 
                             led_portx &= ~ (1 << stp_x_led);  
                             x_boolean = 0; 
-                        }      
+                        }       
+                    
                     if (x_boolean == 1){
                     x_counter ++;
                     }   
