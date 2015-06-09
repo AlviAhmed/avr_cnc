@@ -41,9 +41,10 @@
         #define F_CPU 16000000UL 
     ////////////////////////////////
     ////////////////// This is where the position commands are placed
-        int axis[] = {1};
-        int direction[] = {0};
-        int steps[] = {30000};   
+        int axis[] = {1,1,1};
+        int direction[] = {1,1,1};
+        int steps[] = {30000,30000,30000}; 
+        int speed = 4.625;   
     ///////////////////////////////////////////////////////////////////
         int entries = sizeof(axis)/sizeof(int) - 1; // entries is the number of things in the array 
         int ab = 0; //general counter that goes through array 
@@ -77,7 +78,7 @@
             led_z_ddr |= ((1 << stp_z_led) | (1 << dir_z_led));
         /////////////////////////////////////////////////////////// 
             TCCR1B |= (1 << WGM12);  // configuring timer 1 for ctc mode
-            OCR1A = 14.625;//Timer settings
+            OCR1A = speed;//Timer settings
             TIMSK1 |= (1 << OCIE1A); // enable ctc interrupt
             TCCR1B |= ((1 << CS12) | (1 << CS10)); //Start at 1024 prescaler 
             sei(); //Enable global interrupts
