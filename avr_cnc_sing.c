@@ -44,7 +44,7 @@
         int axis[] = {1,1,1};
         int direction[] = {1,1,1};
         int steps[] = {30000,30000,30000}; 
-        int speed = 4.625;   
+        int speed = 4.65;   
     ///////////////////////////////////////////////////////////////////
         int entries = sizeof(axis)/sizeof(int) - 1; // entries is the number of things in the array 
         int ab = 0; //general counter that goes through array 
