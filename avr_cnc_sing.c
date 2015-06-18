@@ -41,10 +41,11 @@
         #define F_CPU 16000000UL 
     ////////////////////////////////
     ////////////////// This is where the position commands are placed
-        int axis[] = {1,1,1};
-        int direction[] = {1,1,1};
-        int steps[] = {30000,30000,30000}; 
-        int speed = 4.65;   
+        int axis[] = {2};
+        int direction[] = {1};
+        int steps[] = {32767};
+        int speed = 5;    
+
     ///////////////////////////////////////////////////////////////////
         int entries = sizeof(axis)/sizeof(int) - 1; // entries is the number of things in the array 
         int ab = 0; //general counter that goes through array 
@@ -54,7 +55,7 @@
         static volatile int x_boolean = 1; 
         static volatile int y_counter = 0; 
         static volatile int y_boolean = 1;
-        static volatile int z_counter = 0; 
+        static volatile int z_counter = 0;  
         static volatile int z_boolean = 1;   
         static volatile int xy_boolean = 1; 
         static volatile int xy_counter = 0;  
