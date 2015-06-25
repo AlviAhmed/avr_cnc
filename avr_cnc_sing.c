@@ -41,10 +41,11 @@
         #define F_CPU 16000000UL 
     ////////////////////////////////
     ////////////////// This is where the position commands are placed
-        int axis[] = {2};
-        int direction[] = {1};
-        int steps[] = {32767};
-        int speed = 5;    
+   int axis[] = {3, 1, 2, 1, 1, 2, 2, 1, 3, 2, 3, 1, 2, 3, 1, 2, 3, 4, 4, 3, 2, 3, 3, 1, 3, 1, 3, 2, 2};
+int direction[] = {0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 10, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1};
+int steps[] = {10000, 30000, 10000, 30000, 15000, 10000, 10000, 15000, 10000, 15000, 10000, 30000, 15000, 10000, 30000, 15000, 10000, 20000, 20000, 10000, 15000, 10000, 10000, 8000, 10000, 15000, 10000, 15000, 30000, 30000};
+int speed = 1;
+           
 
     ///////////////////////////////////////////////////////////////////
         int entries = sizeof(axis)/sizeof(int) - 1; // entries is the number of things in the array 
@@ -183,48 +184,8 @@
                     }  
                 }  
             
-            //Checks is user enabled xz-axis     
+            //Checks is user enabled xy-axis     
                 else if (enable = 4){  
-                xy_boolean = 1; 
-                //direction
-                    if (direction_ab == 10){ 
-                        led_portx |= (1 << dir_x_led); 
-                        led_portyz &= ~ (1 << dir_z_led);
-                    } 
-                    else if (direction_ab == 11){ 
-                        led_portx |= (1 << dir_x_led); 
-                        led_portyz |= (1 << dir_z_led);
-                    } 
-                    else if (direction_ab == 01){ 
-                        led_portx &= ~ (1 << dir_x_led); 
-                        led_portyz |= (1 << dir_z_led);
-                    } 
-                    else if (direction_ab == 00){ 
-                        led_portx &= ~ (1 << dir_x_led); 
-                        led_portyz &= ~ (1 << dir_z_led);
-                    }  
-                //stepper logic 
-                    led_portyz ^= (1 << stp_z_led); 
-                    led_portx ^= (1 << stp_x_led);
-                    if (xy_counter >= steps_ab){ 
-                        led_portx &= ~ (1 << stp_x_led); 
-                        led_portyz &= ~ (1 << stp_z_led);  
-                        led_portx &= ~ (1 << dir_x_led);
-                        led_portyz &= ~ (1 << dir_z_led);
-                        xy_boolean = 0; 
-                    } 
-                    if (xy_counter >= steps_ab){ 
-                        xy_counter = 0;
-                        ab ++; 
-                    }      
-                    if (xy_boolean == 1){
-                    xy_counter ++;
-                    }  
-                }  
-            ////////////////////////////////////////////////////
-
-            //Checks if user enables xy axis
-                else if (enable = 5){  
                 xy_boolean = 1; 
                 //direction
                     if (direction_ab == 10){ 
@@ -260,8 +221,9 @@
                     if (xy_boolean == 1){
                     xy_counter ++;
                     }  
-                } 
-                //////////////////////////////////////
+                }  
+            ////////////////////////////////////////////////////
+
 
             } 
             //return 0;
