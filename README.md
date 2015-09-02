@@ -8,4 +8,4 @@ I have also recently added a second variation of the code(avr_sing.c), in which 
 then compiling, the user can now have a whole list of commands, and the program will go through them one by one,  
 I am also currently including functionality for simultaneous stepper movement as well. 
 
-All the files in this repository has been licensed under CC BY-NC-ND 4.0
+All the files in this repository has been licensed under CC BY-NC 2.0 CA
