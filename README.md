@@ -6,6 +6,8 @@ however as time goes on I planning to incorporate python to interpret actual g-c
 
 I have also recently added a second variation of the code(avr_sing.c), in which the user instead of sending one command at a time 
 then compiling, the user can now have a whole list of commands, and the program will go through them one by one,  
-I am also currently including functionality for simultaneous stepper movement as well. 
+I am also currently including functionality for simultaneous stepper movement as well.  
+
+Hackaday: https://hackaday.io/project/6419-avr-cnc-project
 
 All the files in this repository has been licensed under CC BY-NC-ND 4.0
