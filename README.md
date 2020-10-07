@@ -1,4 +1,4 @@
-# avr_cnc
+# AVR CNC 
 This is my attempt (work in progress) at making a simple basic cnc stepper motor control system  
 in AVR-C for AVR chips like in this case the atmega 328p.  
 The program for now is designed to accept simple user inputs like direction and amount of steps,  
@@ -8,6 +8,3 @@ I have also recently added a second variation of the code(avr_sing.c), in which 
 then compiling, the user can now have a whole list of commands, and the program will go through them one by one,  
 I am also currently including functionality for simultaneous stepper movement as well.  
 
-Hackaday: https://hackaday.io/project/6419-avr-cnc-project
-
-All the files in this repository has been licensed under CC BY-NC-ND 4.0
